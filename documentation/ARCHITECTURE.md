@@ -182,3 +182,21 @@ pour un usage personnel, à étudier avant toute distribution publique de l'appl
   Durée observée sur ce PC : ~5 min pour un scénario de 40 s.
 - Édition manuelle : `PUT /api/projects/{id}/scenario` (nouvelle version) puis `POST …/scenario/validate`.
 - `services/cartoon/character.py` : dessinateur de personnages 2D (Pillow) préparé pour l'étape 2D.2.
+
+## Synchronisation labiale (module 2D.2, commune 2D/3D)
+
+`services/lipsync.py` transforme la parole en **visèmes** canoniques :
+`rest` (repos), `MBP` (lèvres fermées), `A`, `E`, `I`, `O`, `U`, `FV` (lèvre sur les dents), `L` (langue).
+
+| Source | Fonction | Précision |
+|---|---|---|
+| Voix Piper (horaires de phonèmes) | `track_from_phonemes` | exacte (alignements du modèle) |
+| Enregistrement + mots Whisper | `track_from_words` | phonèmes répartis dans chaque mot |
+| Son seul | `track_from_audio` | ouverture selon le volume |
+
+- Anticipation de 30 ms (la bouche se forme juste avant le son).
+- Anti-scintillement : 40 ms minimum par forme, 35 ms pour une fermeture ; une voyelle n'est jamais
+  avalée par une fermeture voisine (« m-a-p »).
+- `adapt(visème, formes_disponibles)` : couche d'adaptation par personnage (2D ou rig 3D VRM / ARKit / mâchoire
+  simple) — forme la plus proche, sinon ouvert/fermé.
+- Vérifié : chaque « m/b/p » prononcé par Piper ferme les lèvres à l'instant correspondant (`tests/backend/test_lipsync.py`).
