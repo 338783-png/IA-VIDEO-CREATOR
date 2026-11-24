@@ -1,0 +1,33 @@
+# Environnements
+backend/.venv/
+frontend/node_modules/
+frontend/.next/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+
+# Données utilisateur (jamais versionnées)
+storage/**/*
+!storage/**/.gitkeep
+!storage/*/
+exports/**/*
+!exports/**/.gitkeep
+!exports/*/
+projects/project-data/*
+!projects/project-data/.gitkeep
+logs/
+.run/
+ai/models/*
+!ai/models/.gitkeep
+
+# Outils et modèles téléchargés (volumineux)
+ai/tools/
+storage/previews/
+.next-test/
+
+# Données des projets de l'utilisateur (storyboards, styles validés) : jamais versionnées
+projects/storyboards/**
+!projects/storyboards/.gitkeep
+projects/styles/**
+!projects/styles/.gitkeep
