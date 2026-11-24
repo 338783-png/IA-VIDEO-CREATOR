@@ -25,6 +25,7 @@ ai/models/*
 ai/tools/
 storage/previews/
 .next-test/
+.next-check/
 
 # Données des projets de l'utilisateur (storyboards, styles validés) : jamais versionnées
 projects/storyboards/**
